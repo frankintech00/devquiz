@@ -1,13 +1,21 @@
+// Import the React library and useGlobalContext hook from the '../context/context' file
 import React from 'react';
 import { useGlobalContext } from '../context/context';
 
+// Define the SetupForm component as a function
 export const SetupForm = () => {
+	// Destructure the necessary values from the global context using the useGlobalContext hook
 	const { quiz, handleChange, handleSubmit, error } = useGlobalContext();
+
+	// Render the component's UI
 	return (
 		<main className='flex flex-col items-center justify-center h-screen bg-slate-300'>
+			{/* Define a section to contain the form */}
 			<section className='flex flex-col justify-around w-screen max-w-screen-sm p-3 m-4 align-middle bg-white shadow-xl rounded-2xl '>
+				{/* Define the form and its input fields */}
 				<form className='flex flex-col justify-end'>
 					<h2 className='text-xl text-center'>Quiz Setup</h2>
+					{/* Define an input field for the number of quiz questions */}
 					<div className='w-full form-control'>
 						<label className='label' htmlFor='number'>
 							<span className='label-text'>Number of Questions?</span>
@@ -24,6 +32,7 @@ export const SetupForm = () => {
 							max={50}
 						/>
 					</div>
+					{/* Define a dropdown list for quiz categories */}
 					<div className='w-full form-control'>
 						<label className='label' htmlFor='category'>
 							<span className='label-text'>Category</span>
@@ -50,6 +59,7 @@ export const SetupForm = () => {
 							<option value='mythology'>Mythology</option>
 						</select>
 					</div>
+					{/* Define a dropdown list for quiz difficulty */}
 					<div className='w-full form-control'>
 						<label className='label' htmlFor='category'>
 							<span className='label-text'>Difficulty</span>
@@ -66,7 +76,9 @@ export const SetupForm = () => {
 							<option value='hard'>Hard</option>
 						</select>
 					</div>
+					{/* Render an error message if there is an error */}
 					{error && <p className='my-3 text-red-500'>ERROR!</p>}
+					{/* Define a button to submit the quiz form */}
 					<button
 						className='self-center w-2/5 my-10 btn btn-secondary'
 						onClick={handleSubmit}
