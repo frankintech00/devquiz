@@ -30,7 +30,7 @@ const AppProvider = ({ children }) => {
 	const [error, setError] = useState(false);
 	const [quiz, setQuiz] = useState({
 		amount: 10,
-		category: 'sports',
+		category: 'generalKnowledge',
 		difficulty: 'easy',
 	});
 	const [isResultsOpen, setIsResultsOpen] = useState(false);
