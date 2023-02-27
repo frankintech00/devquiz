@@ -1,18 +1,23 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 const table = {
 	sports: 21,
 	history: 23,
 	politics: 24,
+	generalKnowledge: 9,
+	scienceNature: 17,
+	geography: 22,
+	art: 25,
+	celebrities: 26,
+	music: 12,
+	movies: 11,
+	books: 10,
+	tv: 14,
+	mythology: 20,
 };
 
 const API_ENDPOINT = 'https://opentdb.com/api.php?';
-
-const url = '';
-
-const tempUrl =
-	'https://opentdb.com/api.php?amount=10&category=21&difficulty=easy&type=multiple';
 
 const AppContext = React.createContext();
 
@@ -23,7 +28,11 @@ const AppProvider = ({ children }) => {
 	const [index, setIndex] = useState(0);
 	const [correct, setCorrect] = useState(0);
 	const [error, setError] = useState(false);
-
+	const [quiz, setQuiz] = useState({
+		amount: 10,
+		category: 'sports',
+		difficulty: 'easy',
+	});
 	const [isResultsOpen, setIsResultsOpen] = useState(false);
 
 	const fetchQuestions = async (url) => {
@@ -47,9 +56,47 @@ const AppProvider = ({ children }) => {
 		}
 	};
 
-	useEffect(() => {
-		fetchQuestions(tempUrl);
-	}, []);
+	const nextQuestion = () => {
+		setIndex((oldIndex) => {
+			const index = oldIndex + 1;
+			if (index > questions.length - 1) {
+				openResults();
+				return 0;
+			} else {
+				return index;
+			}
+		});
+	};
+
+	const checkAnswer = (value) => {
+		if (value) {
+			setCorrect((oldState) => oldState + 1);
+		}
+		nextQuestion();
+	};
+
+	const openResults = () => {
+		setIsResultsOpen(true);
+	};
+
+	const closeResults = () => {
+		setIsResultsOpen(false);
+		setWaiting(true);
+		setCorrect(0);
+	};
+
+	const handleChange = (e) => {
+		const name = e.target.name;
+		const value = e.target.value;
+		setQuiz({ ...quiz, [name]: value });
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		const { amount, category, difficulty } = quiz;
+		const url = `${API_ENDPOINT}amount=${amount}&category=${table[category]}&difficulty=${difficulty}&type=multiple`;
+		fetchQuestions(url);
+	};
 
 	return (
 		<AppContext.Provider
@@ -61,6 +108,12 @@ const AppProvider = ({ children }) => {
 				correct,
 				error,
 				isResultsOpen,
+				nextQuestion,
+				checkAnswer,
+				closeResults,
+				quiz,
+				handleChange,
+				handleSubmit,
 			}}
 		>
 			{children}

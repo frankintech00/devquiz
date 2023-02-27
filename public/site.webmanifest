@@ -1,6 +1,6 @@
 {
-	"name": "Enter Name",
-	"short_name": "EN",
+	"name": "DevQuiz by Frank Kelly",
+	"short_name": "DevQuiz",
 	"description": "Enter Description",
 	"icons": [
 		{ "src": "/logo192.png", "sizes": "192x192", "type": "image/png" },
