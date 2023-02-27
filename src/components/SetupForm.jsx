@@ -77,7 +77,11 @@ export const SetupForm = () => {
 						</select>
 					</div>
 					{/* Render an error message if there is an error */}
-					{error && <p className='my-3 text-red-500'>ERROR!</p>}
+					{error && (
+						<p className='my-3 text-red-500'>
+							There are no questions that match your choices.
+						</p>
+					)}
 					{/* Define a button to submit the quiz form */}
 					<button
 						className='self-center w-2/5 my-10 btn btn-secondary'
